@@ -1,0 +1,44 @@
+.btn-outlined-primary {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 1px solid rgba(0, 183, 189, 0.5);
+  background-color: transparent;
+  color: rgba(0, 183, 189);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-right: 8px;
+  outline: none;
+}
+.btn-outlined-primary:hover {
+  background-color: rgba(0, 183, 189, 0.03);
+  color: rgba(0, 183, 189);
+  border-color: rgba(0, 183, 189);
+}
+
+.btn-outlined-secondary {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 1px solid rgba(178, 56, 0, 0.5);
+  background-color: transparent;
+  color: rgba(178, 56, 0);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-right: 8px;
+  outline: none;
+}
+.btn-outlined-secondary:hover {
+  background-color: rgba(178, 56, 0, 0.03);
+  color: rgba(178, 56, 0);
+  border-color: rgba(178, 56, 0);
+}
+.swal2-container {
+  z-index: 99999 !important;
+}

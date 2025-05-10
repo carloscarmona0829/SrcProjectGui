@@ -1,0 +1,21 @@
+{
+    "short_name": "De Mis Manos",
+    "name": "De Mis Manos App",
+    "icons": [
+      {
+        "src": "/assets/images/icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/assets/images/icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }
+  
