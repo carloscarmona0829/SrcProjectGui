@@ -1,7 +1,7 @@
 # React + TypeScript + Vite
 
 Description:
-This project has SignUp, Login, Layout, LauoutContent, Menu, Home screens and Create, Read and Update permissions.
+This project contain SignUp, Login, Layout, LauoutContent, Menu, Home screens and Create, Read and Update permissions.
 
 - To works with this project, you must clone the repo since GitHub in your pc
 
