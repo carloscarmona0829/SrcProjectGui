@@ -11,7 +11,7 @@ export default function LayoutContent({ title, children }: LayoutContentProps) {
 
   return (
     <Grid marginTop={10} marginLeft={2} marginRight={2}>
-      {hostname !== "app.demismanos.org" && (
+      {hostname !== "app.srcProject.com" && (
         <Alert severity="warning">
           <AlertTitle>
             <strong>Atención, este es un sitio de prueba</strong>

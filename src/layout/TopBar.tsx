@@ -85,7 +85,7 @@ export default function TopBar({ open, toggleDrawer }: TopBarProps) {
                   src={"/assets/images/Logo.png"}
                   alt="logo-white.png"
                   style={{
-                    maxWidth: "75px",
+                    maxWidth: "35px",
                     height: "auto",
                     marginTop: open ? "17px" : "0px",
                     marginRight: "2px",
@@ -99,7 +99,7 @@ export default function TopBar({ open, toggleDrawer }: TopBarProps) {
                   src={"/assets/images/Name.png"}
                   alt="name.png"
                   style={{
-                    maxWidth: "95px",
+                    maxWidth: "185px",
                     height: "auto",
                     marginTop: "15px",
                     display: isSmallScreen && open ? "none" : "inline",

@@ -28,22 +28,6 @@ import { loginRequest } from "../../config/msalConfig";
 import { useUser } from "../../hooks";
 import { Permission, UserInfo } from "../../interfaces";
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright ©  "}
-      <Link color="inherit" href="https://demismanos.org/" target="_blank">
-        De Mis Manos
-      </Link>
-      {" 2023. "}
-    </Typography>
-  );
-}
 
 export default function Login() {
   const url = new URL(window.location.href);
@@ -75,57 +59,20 @@ export default function Login() {
         scopes: ["User.Read"],
         account: accounts[0],
       };
-      console.log("request", request);
-      // instance.acquireTokenSilent(request).then(response => {
-      //   fetch('http://tu-dominio.com/api/Auth', {
-      //     method: 'GET',
-      //     headers: {
-      //       'Authorization': `Bearer ${response.accessToken}`
-      //     }
-      //   })
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     console.log(data.Message); // Maneja la respuesta
-      //   })
-      //   .catch(error => {
-      //     console.error('Error:', error);
-      //   });
-      // });
+      console.log("request", request);      
     }
     console.log("No hay sesiones activas", accounts);
-  }, []);
-
-  const handleLogin = () => {
-    instance.loginPopup(loginRequest).catch((e) => {
-      console.error(e);
-    });
-  };
+  }, []); 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       setIsLoading(true);
 
-      const data = new FormData(event.currentTarget);
-      const userName = data.get("usuario") as string;
-
-      // 1. Validar si el usuario es de tu dominio empresarial
-      if (userName.endsWith("@demismanos.org")) {
-        // 2. Verificar si ya tiene sesión activa en Microsoft
-        console.log("Si es un usuario de @demismanos.org");
-        try {
-          handleLogin();
-        } catch (error) {
-          console.error("Error durante la autenticación con Azure AD:", error);
-          return;
-        }
-      } else {
-        setErrorMessage("Usuario o contraseña inválido.");
-        return;
-      }
+      const data = new FormData(event.currentTarget);      
 
       const response = await axiosClient.post("/auth/login", {
-        strUserName: data.get("usuario"),
+        strEmail: data.get("usuario"),
         strPassword: data.get("password"),
       });
       if (!response.data.issuccess) {
@@ -183,6 +130,23 @@ export default function Login() {
     }
   };
 
+  function Copyright(props: any) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright ©  "}
+      <Link color="inherit" href="" target="_blank">
+        SrcProject
+      </Link>
+      {" 2025. "}
+    </Typography>
+  );
+}
+
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
@@ -192,7 +156,7 @@ export default function Login() {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: `url("/assets/images/FrontLg.jpg")`,
+          backgroundImage: `url("/assets/images/Background.jpg")`,
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -216,7 +180,7 @@ export default function Login() {
             <img
               src={"/assets/images/Logotipo.png"}
               alt="logotipo.png"
-              style={{ maxWidth: "180px", height: "auto" }}
+              style={{ maxWidth: "480px", height: "auto" }}
             />
           </Grid>
           <Typography component="h2" variant="h5">

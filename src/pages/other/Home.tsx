@@ -10,27 +10,27 @@ export default function Home() {
 
   return (
     <>
-      <Grid
-        height={"100vh"}
+      <Grid        
         sx={{
-          backgroundImage: `url("/assets/images/Background.png")`,
+          backgroundImage: `url("/assets/images/Background.jpg")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
+          height:"100vh",
           display: "flex",
           justifyContent: isSmallScreen ? "flex-start" : "flex-end",
         }}
-      >
+       >
         <Grid
           sx={{
-            backgroundColor: "rgba(242, 244, 244, 0.7)",
+            backgroundColor: "rgba(242, 243, 244, 0.7)",
             borderRadius: isSmallScreen ? "0 10px 10px 0" : "10px 0 0 10px",
             height: "80px",
             padding: "10px",
             textAlign: "center",
             marginTop: "90px",
           }}
-        >
+         >
           <Typography fontSize={16} color={"#616A6B"}>
             {`Te damos la bienvenida `}
             <br />

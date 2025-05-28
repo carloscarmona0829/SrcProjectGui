@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from "../adapters";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#00b7bd',
+      main: '#0066CC',
     },
     secondary: {
       main: '#b23800',
