@@ -1,4 +1,4 @@
-import { useMsal } from "@azure/msal-react";
+//import { useMsal } from "@azure/msal-react";
 import {
   Alert,
   axiosClient,
@@ -19,12 +19,12 @@ import {
   VisibilityOff,
 } from "../../adapters";
 import {
-  useEffect,
+  //useEffect,
   useLocation,
   useNavigate,
   useState,
 } from "../../adapters/ReactAdapter";
-import { loginRequest } from "../../config/msalConfig";
+//import { loginRequest } from "../../config/msalConfig";
 import { useUser } from "../../hooks";
 import { Permission, UserInfo } from "../../interfaces";
 
@@ -35,7 +35,7 @@ export default function Login() {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const email = searchParams.get("email") || "";
+  const email = searchParams.get("username") || "";
 
   const { changeUser } = useUser();
 
@@ -51,18 +51,18 @@ export default function Login() {
     event.preventDefault();
   };
 
-  const { instance, accounts } = useMsal();
+  // const { instance, accounts } = useMsal();
 
-  useEffect(() => {
-    if (accounts.length > 0) {
-      const request = {
-        scopes: ["User.Read"],
-        account: accounts[0],
-      };
-      console.log("request", request);      
-    }
-    console.log("No hay sesiones activas", accounts);
-  }, []); 
+  // useEffect(() => {
+  //   if (accounts.length > 0) {
+  //     const request = {
+  //       scopes: ["User.Read"],
+  //       account: accounts[0],
+  //     };
+  //     console.log("request", request);      
+  //   }
+  //   console.log("No hay sesiones activas", accounts);
+  // }, []); 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,9 +72,10 @@ export default function Login() {
       const data = new FormData(event.currentTarget);      
 
       const response = await axiosClient.post("/auth/login", {
-        strEmail: data.get("usuario"),
+        strUserName : data.get("userName"),
         strPassword: data.get("password"),
-      });
+      });        
+
       if (!response.data.issuccess) {
         setErrorMessage(response.data.message);
         return;
@@ -96,8 +97,8 @@ export default function Login() {
 
       const info = JSON.parse(jsonPayload) as UserInfo;
       const age = response.data.expireDate.toString();
-      const permissions = response.data.permissions as Permission[];
-      const image = response.data.image;
+      const permissions = response.data.permissions.response as Permission[];
+      const image = response.data.image; 
 
       axiosClient.interceptors.request.use((config) => ({
         ...config,
@@ -117,6 +118,7 @@ export default function Login() {
       });
 
       const redirectPath = localStorage.getItem("redirectPath");
+      console.log('redirectPath',redirectPath)
 
       if (redirectPath) {
         navigate(redirectPath);
@@ -196,10 +198,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="usuario"
-              label="Usuario"
-              name="usuario"
-              autoComplete="usuario"
+              id="userName"
+              label="userName"
+              name="userName"
+              autoComplete="userName"
               defaultValue={email}
               autoFocus
             />

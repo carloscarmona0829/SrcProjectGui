@@ -13,81 +13,130 @@ import {
   Grid,
   HowToRegIcon,
   IconButton,
+  InputAdornment,
   Link,
-  MenuItem,
+  //MenuItem,
   Swal,
   TextField,
   Typography,
   useFormik,
-  yup,
+  yup,  
+  Visibility,
+  VisibilityOff,
 } from "../../adapters";
 import { useNavigate, useState } from "../../adapters/ReactAdapter";
-import useGet from "../../hooks/useGet";
-import { PartnersList } from "../../interfaces";
+// import useGet from "../../hooks/useGet";
+// import { PartnersList } from "../../interfaces";
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const { data: partnersRequest } = useGet<{ result: PartnersList[] }>({
-    url: "/Authorization/GetPartners",
-  });
-  const partners = partnersRequest?.result || [];
+  // const { data: partnersRequest } = useGet<{ result: PartnersList[] }>({
+  //   url: "/Authorization/GetPartners",
+  // });
+  //const partners = partnersRequest?.result || [];
 
   const validationSchema = yup.object({
     strDni: yup
       .string()
       .required("La identificación es requerida")
       .matches(/^[0-9]+$/, "Solo se permiten números")
-      .min(5, "El campo identificación debe tener al menos 5 caracteres"),
-    strName: yup.string().required("Los nombres son requeridos"),
+      .min(6, "El campo identificación debe tener al menos 6 caracteres"),
+    strFirstName: yup.string().required("Los nombres son requeridos"),
     strLastName: yup.string().required("Los apellidos son requeridos"),
     strEmail: yup
       .string()
       .email("Ingrese un correo electrónico válido")
       .required("El correo electrónico es requerido"),
-    strPhone: yup
+    strPhoneNumber: yup
       .string()
-      .required("El número de celular es requerido")
+      //.required("El número de celular es requerido")
       .matches(/^[0-9]+$/, "Solo se permiten números")
       .min(10, "El número de celular debe tener al menos 10 caracteres"),
-    intPartnerId: yup.string().required("Seleccione una opción"),
+    //intPartnerId: yup.string().required("Seleccione una opción"),
+    strPassword: yup
+    .string()
+    .required("La contraseña es requerida")
+    .min(5, "La contraseña debe tener al menos 5 caracteres"),
+    strConfirmPassword: yup
+    .string()
+    .required("Confirme su contraseña")
+    .oneOf([yup.ref('strPassword')], 'Las contraseñas no coinciden'), 
   });
 
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
+  
+    const handleMouseDownPassword = (
+      event: React.MouseEvent<HTMLButtonElement>
+    ) => {
+      event.preventDefault();
+    };
 
   const formik = useFormik({
     initialValues: {
       strDni: "",
-      strName: "",
+      strFirstName: "",
       strLastName: "",
-      strPhone: "",
+      strUserName: "",
+      strBirthday: "",
+      strPhoneNumber: "",
       strEmail: "",
-      intPartnerId: undefined,
+      strPassword:"",
+      strConfirmPassword:"",
+      //intPartnerId: undefined,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
-        await axiosClient.post("/Authorization/AddExternalUser", {
-          strDni: values.strDni,
-          strName: values.strName,
-          strLastName: values.strLastName,
-          strPhone: values.strPhone,
-          strEmail: values.strEmail,
-          intPartnerId: values.intPartnerId,
+        const response = await axiosClient.post("/Auth/Register", {
+          dni: values.strDni,
+          firstName: values.strFirstName,
+          lastName: values.strLastName,
+          userName: values.strEmail,
+          birthDay: values.strEmail,
+          phoneNumber: values.strPhoneNumber,
+          email: values.strEmail,
+          password: values.strPassword,
+          confirmPassword: values.strConfirmPassword,
+          //intPartnerId: values.intPartnerId,
         });
+
+        if (!response.data.issuccess) {
+         Swal.fire({
+          icon: "error",
+          title: `<h5>El usuario no fue creado</h5>`,
+          html: `<div>
+                    ${response.data.result} 
+                  <br />
+                  <h6><a href="/recuperar-contrasena">Clic aquí para recuper su contraseña</a></h6>
+               
+                 </div>`,
+          confirmButtonText: "ACEPTAR",
+          customClass: {
+            confirmButton: "btn-outlined-secondary",
+          },
+          buttonsStyling: false,
+        })
+        return;
+      }
 
         Swal.fire({
           icon: "success",
-          title: `<h5>Usuario guardado con exito!!!</h5>`,
+          title: `<h5>El usuario fue creado exitosamente</h5>`,
           html: `<div>
               Tenga en cuenta que los datos para iniciar sesión son:
               <br />
               <hr />
-              Usuario: <strong>${values.strEmail}</strong>
+              Usuario: <strong>${values.strEmail.substring(0, values.strEmail.indexOf('@'))}</strong>
               <br />
               <hr />
-              Contraseña: <strong>${values.strDni}</strong>
+              Contraseña: <strong>${values.strPassword}</strong>
               <hr />
               <br />
             </div>`,
@@ -97,7 +146,7 @@ export default function SignUp() {
           },
           buttonsStyling: false,
         }).then(() => {
-          navigate(`/?email=${encodeURIComponent(values.strEmail)}`);
+          navigate(`/?username=${encodeURIComponent(values.strEmail.substring(0, values.strEmail.indexOf('@')))}`);
         });
       } catch {
         setErrorMessage(
@@ -148,7 +197,7 @@ export default function SignUp() {
                 helperText={formik.touched.strDni && formik.errors.strDni}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 select
                 id="intPartnerId"
@@ -175,19 +224,19 @@ export default function SignUp() {
                   </MenuItem>
                 ))}
               </TextField>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
-                name="strName"
-                id="strName"
+                name="strFirstName"
+                id="strFirstName"
                 label="Nombres"
                 required
                 fullWidth
-                value={formik.values.strName}
+                value={formik.values.strFirstName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.strName && Boolean(formik.errors.strName)}
-                helperText={formik.touched.strName && formik.errors.strName}
+                error={formik.touched.strFirstName && Boolean(formik.errors.strFirstName)}
+                helperText={formik.touched.strFirstName && formik.errors.strFirstName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -207,23 +256,24 @@ export default function SignUp() {
                   formik.touched.strLastName && formik.errors.strLastName
                 }
               />
-            </Grid>
-            <Grid item xs={12}>
+            </Grid>            
+            {/* <Grid item xs={12}>
               <TextField
-                type="tel"
-                name="strPhone"
-                id="celular"
-                label="Celular"
-                required
+                name="strBirthDay"
+                id="strBirthDay"
+                label="Fecha de Nacimiento"
                 fullWidth
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={
-                  formik.touched.strPhone && Boolean(formik.errors.strPhone)
+                  formik.touched.strLastName &&
+                  Boolean(formik.errors.strLastName)
                 }
-                helperText={formik.touched.strPhone && formik.errors.strPhone}
+                helperText={
+                  formik.touched.strLastName && formik.errors.strLastName
+                }
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 name="strEmail"
@@ -239,6 +289,97 @@ export default function SignUp() {
                 helperText={formik.touched.strEmail && formik.errors.strEmail}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="tel"
+                name="strPhoneNumber"
+                id="strPhoneNumber"
+                label="Celular"
+                fullWidth
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.strPhoneNumber && Boolean(formik.errors.strPhoneNumber)
+                }
+                helperText={formik.touched.strPhoneNumber && formik.errors.strPhoneNumber}
+              />
+            </Grid>            
+            <Grid item xs={12}>
+              <TextField
+                name="strPassword"
+                id="strPassword"
+                label="Contraseña"
+                required
+                fullWidth
+                sx={{
+                "& input::-ms-reveal": {
+                  display: "none",
+                },
+                "& input::-ms-clear": {
+                  display: "none",
+                },
+              }}
+              InputProps={{
+                type: showPassword ? "text" : "password",
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.strPassword && Boolean(formik.errors.strPassword)
+                }
+                helperText={formik.touched.strPassword && formik.errors.strPassword}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                name="strConfirmPassword"
+                id="strConfirmPassword"
+                label="Confirmar Contraseña"
+                required
+                fullWidth
+                sx={{
+                "& input::-ms-reveal": {
+                  display: "none",
+                },
+                "& input::-ms-clear": {
+                  display: "none",
+                },
+              }}
+              InputProps={{
+                type: showConfirmPassword ? "text" : "password",
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle confirm password visibility"
+                      onClick={handleClickShowConfirmPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.strConfirmPassword && Boolean(formik.errors.strConfirmPassword)
+                }
+                helperText={formik.touched.strConfirmPassword && formik.errors.strConfirmPassword}
+              />
+            </Grid>            
           </Grid>
           <Grid item xs={6} sm={6}>
             <Button
