@@ -8,7 +8,7 @@ import {
   StrictMode,
 } from "./adapters/ReactAdapter.ts";
 import App from "./App.tsx";
-import { msalConfig } from "./config/msalConfig.ts";
+//import { msalConfig } from "./config/msalConfig.ts";
 import "./config/sweetAlertStyles.css";
 import { theme, ThemeProvider } from "./config/theme.ts";
 import { UserProvider } from "./providers/UserContextProvider.tsx";
@@ -18,11 +18,11 @@ registerSW({
   onOfflineReady() {},
 });
 
-const msalInstance = new PublicClientApplication(msalConfig);
+//const msalInstance = new PublicClientApplication(msalConfig);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <MsalProvider instance={msalInstance}>
+    {/* <MsalProvider instance={msalInstance}> */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
@@ -31,6 +31,6 @@ createRoot(document.getElementById("root")!).render(
           </UserProvider>
         </BrowserRouter>
       </ThemeProvider>
-    </MsalProvider>
+    {/* </MsalProvider> */}
   </StrictMode>
 );
