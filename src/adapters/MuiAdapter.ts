@@ -66,6 +66,7 @@ import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import Toolbar from "@mui/material/Toolbar";
 import { TransitionProps } from "@mui/material/transitions";
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 export {
     AccountBalanceIcon, AccountCircle, AccountCircleIcon, Alert, AlertTitle, ArticleIcon, AssignmentIndIcon, Avatar, Backdrop, Box, Button, CalendarMonthIcon, ChevronLeftIcon, CircularProgress, ClearIcon, CloseIcon, Collapse, colors, Container, createTheme, CssBaseline, Dialog,
@@ -75,7 +76,7 @@ export {
     ListItemText, LogoutIcon, MenuIcon, MenuItem, MuiAppBar, MuiDrawer, Paper, PersonIcon, PhoneCallbackIcon, RestaurantIcon, RestaurantMenuIcon, SearchIcon, Skeleton, Slide, SpellcheckIcon, SportsTennisIcon, styled, Table,
     TableBody, TableCell, tableCellClasses, TableHead,
     TablePagination,
-    TableRow, TextField, ThemeProvider, Toolbar, Tooltip, Typography, useMediaQuery, Visibility, VisibilityOff, WorkspacePremiumIcon
+    TableRow, TextField, ThemeProvider, Toolbar, Tooltip, Typography, useMediaQuery, Visibility, VisibilityOff, WorkspacePremiumIcon, VerifiedIcon
 };
 
     export type { AppBarProps, TransitionProps };

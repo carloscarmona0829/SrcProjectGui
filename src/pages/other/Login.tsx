@@ -118,7 +118,6 @@ export default function Login() {
       });
 
       const redirectPath = localStorage.getItem("redirectPath");
-      console.log('redirectPath',redirectPath)
 
       if (redirectPath) {
         navigate(redirectPath);
@@ -182,7 +181,7 @@ export default function Login() {
             <img
               src={"/assets/images/Logotipo.png"}
               alt="logotipo.png"
-              style={{ maxWidth: "480px", height: "auto" }}
+              style={{ maxWidth: "400px", height: "auto" }}
             />
           </Grid>
           <Typography component="h2" variant="h5">
@@ -240,7 +239,7 @@ export default function Login() {
               }}
             />
             <Grid container justifyContent="center" alignItems="center">
-              <Link href="/registro">{"Regístrate"}</Link>
+              <Link href="/sign-up">{"Regístrate"}</Link>
             </Grid>
             <Button
               type="submit"
