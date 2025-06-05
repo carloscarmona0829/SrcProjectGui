@@ -28,7 +28,6 @@ import {
 import { useUser } from "../../hooks";
 import { Permission, UserInfo } from "../../interfaces";
 
-
 export default function Login() {
   const url = new URL(window.location.href);
   const hostname = url.hostname;
@@ -59,22 +58,22 @@ export default function Login() {
   //       scopes: ["User.Read"],
   //       account: accounts[0],
   //     };
-  //     console.log("request", request);      
+  //     console.log("request", request);
   //   }
   //   console.log("No hay sesiones activas", accounts);
-  // }, []); 
+  // }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       setIsLoading(true);
 
-      const data = new FormData(event.currentTarget);      
+      const data = new FormData(event.currentTarget);
 
       const response = await axiosClient.post("/auth/login", {
-        strUserName : data.get("userName"),
+        strUserName: data.get("userName"),
         strPassword: data.get("password"),
-      });        
+      });
 
       if (!response.data.issuccess) {
         setErrorMessage(response.data.message);
@@ -98,7 +97,7 @@ export default function Login() {
       const info = JSON.parse(jsonPayload) as UserInfo;
       const age = response.data.expireDate.toString();
       const permissions = response.data.permissions.response as Permission[];
-      const image = response.data.image; 
+      const image = response.data.image;
 
       axiosClient.interceptors.request.use((config) => ({
         ...config,
@@ -132,21 +131,21 @@ export default function Login() {
   };
 
   function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright ©  "}
-      <Link color="inherit" href="" target="_blank">
-        SrcProject
-      </Link>
-      {" 2025. "}
-    </Typography>
-  );
-}
+    return (
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"Copyright ©  "}
+        <Link color="inherit" href="" target="_blank">
+          SrcProject
+        </Link>
+        {" 2025. "}
+      </Typography>
+    );
+  }
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -198,7 +197,7 @@ export default function Login() {
               required
               fullWidth
               id="userName"
-              label="userName"
+              label="Usuario"
               name="userName"
               autoComplete="userName"
               defaultValue={email}
@@ -240,6 +239,8 @@ export default function Login() {
             />
             <Grid container justifyContent="center" alignItems="center">
               <Link href="/sign-up">{"Regístrate"}</Link>
+              <Typography sx={{ mx: 1 }}>{"/"}</Typography>
+              <Link href="/forgot-password">{"Olvidó su contraseña?"}</Link>
             </Grid>
             <Button
               type="submit"

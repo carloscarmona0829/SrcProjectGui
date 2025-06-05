@@ -1,5 +1,7 @@
 import moment, { Moment } from 'moment';
 
+moment.locale('es'); 
+
 export default moment;
 export type { Moment };
 

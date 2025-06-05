@@ -1,3 +1,4 @@
+import moment from "../../adapters/MomentAdapter";
 import {
   Alert,
   Avatar,
@@ -20,9 +21,12 @@ import {
   TextField,
   Typography,
   useFormik,
-  yup,  
+  yup,
   Visibility,
   VisibilityOff,
+  DatePicker,
+  LocalizationProvider,
+  AdapterMoment,
 } from "../../adapters";
 import { useNavigate, useState } from "../../adapters/ReactAdapter";
 // import useGet from "../../hooks/useGet";
@@ -43,6 +47,7 @@ export default function SignUp() {
       .min(6, "El campo identificación debe tener al menos 6 caracteres"),
     strFirstName: yup.string().required("Los nombres son requeridos"),
     strLastName: yup.string().required("Los apellidos son requeridos"),
+    strBirthday: yup.mixed().nullable(),
     strEmail: yup
       .string()
       .email("Ingrese un correo electrónico válido")
@@ -54,28 +59,29 @@ export default function SignUp() {
       .min(10, "El número de celular debe tener al menos 10 caracteres"),
     //intPartnerId: yup.string().required("Seleccione una opción"),
     strPassword: yup
-    .string()
-    .required("La contraseña es requerida")
-    .min(5, "La contraseña debe tener al menos 5 caracteres"),
+      .string()
+      .required("La contraseña es requerida")
+      .min(5, "La contraseña debe tener al menos 5 caracteres"),
     strConfirmPassword: yup
-    .string()
-    .required("Confirme su contraseña")
-    .oneOf([yup.ref('strPassword')], 'Las contraseñas no coinciden'), 
+      .string()
+      .required("Confirme su contraseña")
+      .oneOf([yup.ref("strPassword")], "Las contraseñas no coinciden"),
   });
 
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
-  
-    const handleMouseDownPassword = (
-      event: React.MouseEvent<HTMLButtonElement>
-    ) => {
-      event.preventDefault();
-    };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -83,12 +89,11 @@ export default function SignUp() {
       strFirstName: "",
       strLastName: "",
       strUserName: "",
-      strBirthday: "",
+      strBirthday: null,
       strPhoneNumber: "",
       strEmail: "",
-      strPassword:"",
-      strConfirmPassword:"",
-      //intPartnerId: undefined,
+      strPassword: "",
+      strConfirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -99,41 +104,48 @@ export default function SignUp() {
           firstName: values.strFirstName,
           lastName: values.strLastName,
           userName: values.strEmail,
-          birthDay: values.strEmail,
+          birthDay: values.strBirthday
+            ? moment(values.strBirthday).format("YYYY-MM-DD")
+            : "",
           phoneNumber: values.strPhoneNumber,
           email: values.strEmail,
           password: values.strPassword,
           confirmPassword: values.strConfirmPassword,
-          //intPartnerId: values.intPartnerId,
         });
 
-        if (!response.data.issuccess) {
-         Swal.fire({
-          icon: "error",
-          title: `<h5>El usuario no fue creado</h5>`,
-          html: `<div>
-                    ${response.data.result} 
+        if (!response.data.isSuccess) {
+          Swal.fire({
+            icon: "error",
+            title: `<h5>El usuario no fue creado</h5>`,
+            html: `<div>
+                    ${response.data.response} 
                   <br />
                   <h6><a href="/recuperar-contrasena">Clic aquí para recuper su contraseña</a></h6>
                
                  </div>`,
-          confirmButtonText: "ACEPTAR",
-          customClass: {
-            confirmButton: "btn-outlined-secondary",
-          },
-          buttonsStyling: false,
-        })
-        return;
-      }
+            confirmButtonText: "ACEPTAR",
+            customClass: {
+              confirmButton: "btn-outlined-secondary",
+            },
+            buttonsStyling: false,
+          });
+          return;
+        }
 
         Swal.fire({
           icon: "success",
           title: `<h5>El usuario fue creado exitosamente</h5>`,
           html: `<div>
-              Tenga en cuenta que los datos para iniciar sesión son:
+              Se envió un mensaje de confirmación al correo electrónico a <strong>${values.strEmail}</strong>.
+              <br />
+              <br />
+              Tenga en cuenta que después de dicha confirmación, los datos para iniciar sesión son:
               <br />
               <hr />
-              Usuario: <strong>${values.strEmail.substring(0, values.strEmail.indexOf('@'))}</strong>
+              Usuario: <strong>${values.strEmail.substring(
+                0,
+                values.strEmail.indexOf("@")
+              )}</strong>
               <br />
               <hr />
               Contraseña: <strong>${values.strPassword}</strong>
@@ -146,7 +158,11 @@ export default function SignUp() {
           },
           buttonsStyling: false,
         }).then(() => {
-          navigate(`/?username=${encodeURIComponent(values.strEmail.substring(0, values.strEmail.indexOf('@')))}`);
+          navigate(
+            `/?username=${encodeURIComponent(
+              values.strEmail.substring(0, values.strEmail.indexOf("@"))
+            )}`
+          );
         });
       } catch {
         setErrorMessage(
@@ -189,7 +205,6 @@ export default function SignUp() {
                 label="Identificación"
                 required
                 fullWidth
-                autoFocus
                 value={formik.values.strDni}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -197,34 +212,6 @@ export default function SignUp() {
                 helperText={formik.touched.strDni && formik.errors.strDni}
               />
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                select
-                id="intPartnerId"
-                name="intPartnerId"
-                label="Tipo de vinculación"
-                fullWidth
-                value={formik.values.intPartnerId}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={
-                  formik.touched.intPartnerId &&
-                  Boolean(formik.errors.intPartnerId)
-                }
-                helperText={
-                  formik.touched.intPartnerId && formik.errors.intPartnerId
-                }
-              >
-                {partners.map((partner) => (
-                  <MenuItem
-                    key={partner.intPartnerId}
-                    value={partner.intPartnerId?.toString()}
-                  >
-                    {partner.strDescription}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 name="strFirstName"
@@ -235,8 +222,13 @@ export default function SignUp() {
                 value={formik.values.strFirstName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.strFirstName && Boolean(formik.errors.strFirstName)}
-                helperText={formik.touched.strFirstName && formik.errors.strFirstName}
+                error={
+                  formik.touched.strFirstName &&
+                  Boolean(formik.errors.strFirstName)
+                }
+                helperText={
+                  formik.touched.strFirstName && formik.errors.strFirstName
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -256,24 +248,29 @@ export default function SignUp() {
                   formik.touched.strLastName && formik.errors.strLastName
                 }
               />
-            </Grid>            
-            {/* <Grid item xs={12}>
-              <TextField
-                name="strBirthDay"
-                id="strBirthDay"
-                label="Fecha de Nacimiento"
-                fullWidth
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={
-                  formik.touched.strLastName &&
-                  Boolean(formik.errors.strLastName)
-                }
-                helperText={
-                  formik.touched.strLastName && formik.errors.strLastName
-                }
-              />
-            </Grid> */}
+            </Grid>
+            <Grid item xs={12} md={6} textAlign={"center"}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DatePicker
+                  label="Fecha Nacimiento"
+                  value={formik.values.strBirthday}
+                  format="DD-MMM-YYYY"
+                  slotProps={{
+                    textField: {
+                      id: "strBirthday",
+                      name: "strBirthday",
+                      error:
+                        formik.touched.strBirthday &&
+                        Boolean(formik.errors.strBirthday),
+                      fullWidth: true,
+                    },
+                  }}
+                  onChange={(value) =>
+                    formik.setFieldValue("strBirthday", value)
+                  }
+                />
+              </LocalizationProvider>
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 name="strEmail"
@@ -299,11 +296,14 @@ export default function SignUp() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={
-                  formik.touched.strPhoneNumber && Boolean(formik.errors.strPhoneNumber)
+                  formik.touched.strPhoneNumber &&
+                  Boolean(formik.errors.strPhoneNumber)
                 }
-                helperText={formik.touched.strPhoneNumber && formik.errors.strPhoneNumber}
+                helperText={
+                  formik.touched.strPhoneNumber && formik.errors.strPhoneNumber
+                }
               />
-            </Grid>            
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 name="strPassword"
@@ -312,34 +312,37 @@ export default function SignUp() {
                 required
                 fullWidth
                 sx={{
-                "& input::-ms-reveal": {
-                  display: "none",
-                },
-                "& input::-ms-clear": {
-                  display: "none",
-                },
-              }}
-              InputProps={{
-                type: showPassword ? "text" : "password",
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+                  "& input::-ms-reveal": {
+                    display: "none",
+                  },
+                  "& input::-ms-clear": {
+                    display: "none",
+                  },
+                }}
+                InputProps={{
+                  type: showPassword ? "text" : "password",
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={
-                  formik.touched.strPassword && Boolean(formik.errors.strPassword)
+                  formik.touched.strPassword &&
+                  Boolean(formik.errors.strPassword)
                 }
-                helperText={formik.touched.strPassword && formik.errors.strPassword}
+                helperText={
+                  formik.touched.strPassword && formik.errors.strPassword
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -350,36 +353,44 @@ export default function SignUp() {
                 required
                 fullWidth
                 sx={{
-                "& input::-ms-reveal": {
-                  display: "none",
-                },
-                "& input::-ms-clear": {
-                  display: "none",
-                },
-              }}
-              InputProps={{
-                type: showConfirmPassword ? "text" : "password",
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle confirm password visibility"
-                      onClick={handleClickShowConfirmPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+                  "& input::-ms-reveal": {
+                    display: "none",
+                  },
+                  "& input::-ms-clear": {
+                    display: "none",
+                  },
+                }}
+                InputProps={{
+                  type: showConfirmPassword ? "text" : "password",
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle confirm password visibility"
+                        onClick={handleClickShowConfirmPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showConfirmPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={
-                  formik.touched.strConfirmPassword && Boolean(formik.errors.strConfirmPassword)
+                  formik.touched.strConfirmPassword &&
+                  Boolean(formik.errors.strConfirmPassword)
                 }
-                helperText={formik.touched.strConfirmPassword && formik.errors.strConfirmPassword}
+                helperText={
+                  formik.touched.strConfirmPassword &&
+                  formik.errors.strConfirmPassword
+                }
               />
-            </Grid>            
+            </Grid>
           </Grid>
           <Grid item xs={6} sm={6}>
             <Button
@@ -398,7 +409,6 @@ export default function SignUp() {
               Guardar
             </Button>
           </Grid>
-
           <Box sx={{ width: "100%" }}>
             <Collapse in={Boolean(errorMessage)}>
               <Alert
@@ -420,7 +430,6 @@ export default function SignUp() {
               </Alert>
             </Collapse>
           </Box>
-
           <Grid container justifyContent="center">
             <Grid item style={{ textAlign: "center" }}>
               {"¿Ya tiene un usuario?"}

@@ -1,5 +1,5 @@
 import { Route } from "../interfaces";
-import { EmailConfirm, Login, SignUp } from "../pages";
+import { EmailConfirm, ForgotPassword, Login, SignUp } from "../pages";
 import commonRoutes from "./common-routes";
 
 const publicRoutes: Route[] = [
@@ -18,6 +18,11 @@ const publicRoutes: Route[] = [
     path: "/confirm-email",
     id: "confirm-email",
     element: <EmailConfirm />,
+  },
+  {
+    path: "/forgot-password",
+    id: "forgot-password",
+    element: <ForgotPassword />,
   },
 ];
 

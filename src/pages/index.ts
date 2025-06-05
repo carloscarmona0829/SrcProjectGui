@@ -1,5 +1,6 @@
 
 import EmailConfirm from './other/EmailConfirm';
+import ForgotPassword from './other/ForgotPassword';
 import Home from './other/Home';
 import Login from "./other/Login";
 import NotFound from './other/NotFound';
@@ -10,6 +11,6 @@ import reducer, {
     State,
 } from "./permissions/Permissions.reducer";
 
-export { Home, initialState, Login, NotFound, Permissions, reducer, SignUp, EmailConfirm };
+export { Home, initialState, Login, NotFound, Permissions, reducer, SignUp, EmailConfirm, ForgotPassword };
 export type { State };
 
