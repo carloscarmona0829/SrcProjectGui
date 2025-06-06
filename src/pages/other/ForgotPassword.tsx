@@ -46,18 +46,18 @@ export default function ForgotPassword() {
         );
 
         if (!response.data.isSuccess) {
-          setErrorMessage(response.data.response);
+          setErrorMessage(response.data.message);
           return;
         }
 
         Swal.fire({
           icon: "success",
-          title: `<h5>El usuario fue encontrado</h5>`,
+          title: `<h5>Recuperación de contraseña</h5>`,
           html: `<div>
-                    Se envió un mensaje de confirmación al correo <strong>${values.strEmail}</strong>.
+                    ${response.data.message}.
                     <br />
                     <br />
-                    Verifique su correo electrónico y siga los pasos para recuperar su contraseña.          
+                    Verifique su correo <strong>${values.strEmail}</strong> y siga las instrucciones.          
                   </div>`,
           confirmButtonText: "ACEPTAR",
           customClass: {

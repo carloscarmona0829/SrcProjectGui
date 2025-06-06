@@ -118,9 +118,9 @@ export default function SignUp() {
             icon: "error",
             title: `<h5>El usuario no fue creado</h5>`,
             html: `<div>
-                    ${response.data.response} 
+                    ${response.data.message} 
                   <br />
-                  <h6><a href="/recuperar-contrasena">Clic aquí para recuper su contraseña</a></h6>
+                  <h6><a href="/forgot-password">Clic aquí para recuper su contraseña</a></h6>
                
                  </div>`,
             confirmButtonText: "ACEPTAR",
@@ -134,7 +134,7 @@ export default function SignUp() {
 
         Swal.fire({
           icon: "success",
-          title: `<h5>El usuario fue creado exitosamente</h5>`,
+          title: `<h5>${response.data.message}</h5>`,
           html: `<div>
               Se envió un mensaje de confirmación al correo electrónico a <strong>${values.strEmail}</strong>.
               <br />
