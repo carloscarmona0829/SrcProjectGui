@@ -12,6 +12,8 @@ import {
   PhoneCallbackIcon,
   RestaurantIcon,
   RestaurantMenuIcon,
+  SettingsBrightnessIcon,
+  SettingsIcon,
   SpellcheckIcon,
   SportsTennisIcon,
   Tooltip,
@@ -54,6 +56,31 @@ const menuItems: MenuItem[] = [
         ),
         path: "/nav-logs",
       },
+    ],
+  },
+  {
+    name: "Config",
+    id: "config",
+    icon: (
+      <>
+        <Tooltip title="Config" arrow placement="right">
+          <SettingsIcon />
+        </Tooltip>
+      </>
+    ),
+    submenus: [
+      {
+        name: "Gui Config",
+        id: "gui-config",
+        icon: (
+          <>
+            <Tooltip title="Gui Config" arrow placement="right">
+              <SettingsBrightnessIcon />
+            </Tooltip>
+          </>
+        ),
+        path: "/gui-config",
+      },      
     ],
   },
   {

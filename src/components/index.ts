@@ -5,7 +5,8 @@ import PermissionsHeader from "../components/permissions/PermissionsHeader";
 
 import AuthPrivateRoutes from "./auth/AuthPrivateRoutes";
 import AuthPublicRoutes from "./auth/AuthPublicRoutes";
+import GuiConfig from "./config/GuiConfig";
 
-export { AuthPrivateRoutes, AuthPublicRoutes, NewPermissionDialog, PermissionsBody, PermissionsDialog, PermissionsHeader };
+export { AuthPrivateRoutes, AuthPublicRoutes, NewPermissionDialog, PermissionsBody, PermissionsDialog, PermissionsHeader, GuiConfig };
 
 

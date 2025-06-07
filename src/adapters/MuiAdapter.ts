@@ -71,6 +71,9 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import PasswordIcon from '@mui/icons-material/Password';
 import SendIcon from '@mui/icons-material/Send';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 
 export {
     AccountBalanceIcon, AccountCircle, AccountCircleIcon, Alert, AlertTitle, ArticleIcon, AssignmentIndIcon, Avatar, Backdrop, Box, Button, CalendarMonthIcon, ChevronLeftIcon, CircularProgress, ClearIcon, CloseIcon, Collapse, colors, Container, createTheme, CssBaseline, Dialog,
@@ -80,7 +83,7 @@ export {
     ListItemText, LogoutIcon, MenuIcon, MenuItem, MuiAppBar, MuiDrawer, Paper, PersonIcon, PhoneCallbackIcon, RestaurantIcon, RestaurantMenuIcon, SearchIcon, Skeleton, Slide, SpellcheckIcon, SportsTennisIcon, styled, Table,
     TableBody, TableCell, tableCellClasses, TableHead,
     TablePagination,
-    TableRow, TextField, ThemeProvider, Toolbar, Tooltip, Typography, useMediaQuery, Visibility, VisibilityOff, WorkspacePremiumIcon, VerifiedIcon, DatePicker, LocalizationProvider, AdapterMoment, PasswordIcon, SendIcon
+    TableRow, TextField, ThemeProvider, Toolbar, Tooltip, Typography, useMediaQuery, Visibility, VisibilityOff, WorkspacePremiumIcon, VerifiedIcon, DatePicker, LocalizationProvider, AdapterMoment, PasswordIcon, SendIcon, SettingsIcon, SettingsBrightnessIcon, ImageSearchIcon
 };
 
     export type { AppBarProps, TransitionProps };
