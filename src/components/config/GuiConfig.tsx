@@ -7,8 +7,10 @@ import {
   ImageSearchIcon,
   InputAdornment,
   Paper,
+  SendIcon,
   Swal,
   TextField,
+  Typography,
   useFormik,
 } from "../../adapters";
 import * as Yup from "yup";
@@ -16,12 +18,12 @@ import { useState } from "../../adapters/ReactAdapter";
 
 export default function GuiConfig() {
   const validationSchema = Yup.object({
-    fileName: Yup.string().required("Seleccione una imagen para actualizar"),
+    logo: Yup.string().required("Seleccione una imagen"),
   });
 
   const formik = useFormik({
     initialValues: {
-      fileName: "",
+      logo: "",
     },
     validationSchema: validationSchema,
     onSubmit: async () => {
@@ -65,7 +67,7 @@ export default function GuiConfig() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
-      formik.setFieldValue("fileName", file.name);
+      formik.setFieldValue("logo", file.name);
       setSelectedFile(file);
     }
   };
@@ -73,39 +75,50 @@ export default function GuiConfig() {
     <>
       <Paper sx={{ padding: 3 }}>
         <Grid component="form" noValidate onSubmit={formik.handleSubmit}>
-          <Grid container direction="row">
+          <Typography variant="body1" mb={1}>
+            Cambiar Logo
+          </Typography>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            marginBottom={2}
+          >
             <Grid
               item
+              xs={8}
+              sm={8}
               sx={{
                 position: "relative",
                 display: "flex",
                 alignItems: "center",
               }}
             >
-              <TextField
-                label="Seleccionar imagen"
+              <TextField                
+                label="Seleccionar Logo"
                 required
                 variant="outlined"
-                sx={{ width: 260 }}
-                disabled
+                size="small"
                 fullWidth
+                disabled
                 value={
-                  selectedFile ? selectedFile.name : formik.values.fileName
+                  selectedFile ? selectedFile.name : formik.values.logo
                 }
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton sx={{ p: 0 }}>
-                        <ImageSearchIcon sx={{ fontSize: 25 }} />
+                        <ImageSearchIcon sx={{ fontSize: 20 }} />
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
                 onBlur={formik.handleBlur}
                 error={
-                  formik.touched.fileName && Boolean(formik.errors.fileName)
+                  formik.touched.logo && Boolean(formik.errors.logo)
                 }
-                helperText={formik.touched.fileName && formik.errors.fileName}
+                helperText={formik.touched.logo && formik.errors.logo}
               />
               <input
                 type="file"
@@ -122,14 +135,21 @@ export default function GuiConfig() {
                 }}
               />
             </Grid>
-            <Button type="submit" color="primary" variant="outlined">
-              {formik.isSubmitting ? (
-                <CircularProgress size={20} style={{ color: "primary" }} />
-              ) : (
-                "Guardar"
-              )}
-            </Button>
-          </Grid>
+            <Grid item xs={4} sm={4}>
+              <Button
+                type="submit"
+                color="primary"
+                variant="outlined"
+                size="large"
+              >
+                {formik.isSubmitting ? (
+                  <CircularProgress size={20} style={{ color: "primary" }} />
+                ) : (
+                  <SendIcon />
+                )}
+              </Button>
+            </Grid>
+          </Grid>          
         </Grid>
       </Paper>
     </>
