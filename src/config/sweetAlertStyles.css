@@ -2,9 +2,9 @@
   display: inline-block;
   padding: 8px 16px;
   font-size: 16px;
-  border: 1px solid rgba(0, 183, 189, 0.5);
+  border: 1px solid rgba(0, 102, 204);
   background-color: transparent;
-  color: rgba(0, 183, 189);
+  color: rgba(0, 102, 204);
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
@@ -14,9 +14,9 @@
   outline: none;
 }
 .btn-outlined-primary:hover {
-  background-color: rgba(0, 183, 189, 0.03);
-  color: rgba(0, 183, 189);
-  border-color: rgba(0, 183, 189);
+  background-color: rgba(0, 102, 204, 0.5);
+  color:rgba(0, 102, 204);
+  border-color: rgba(0, 102, 204);
 }
 
 .btn-outlined-secondary {
@@ -35,7 +35,7 @@
   outline: none;
 }
 .btn-outlined-secondary:hover {
-  background-color: rgba(178, 56, 0, 0.03);
+  background-color: rgba(178, 56, 0, 0.5);
   color: rgba(178, 56, 0);
   border-color: rgba(178, 56, 0);
 }

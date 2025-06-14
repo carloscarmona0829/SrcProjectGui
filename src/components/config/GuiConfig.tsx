@@ -21,7 +21,7 @@ export default function GuiConfig() {
 
   const formik = useFormik({
     initialValues: {
-      fileName : ""
+      fileName: "",
     },
     validationSchema: validationSchema,
     onSubmit: async () => {
@@ -33,17 +33,19 @@ export default function GuiConfig() {
             headers: {
               "Content-Type": "multipart/form-data",
             },
-          }); 
+          });
           Swal.fire({
-          icon: "success",
-          title: "Actualización de Logo Exitosa",
-          confirmButtonText: "ACEPTAR",
-          customClass: {
-            confirmButton: "btn-outlined-primary",
-          },
-          buttonsStyling: true
-        });              
-        }           
+            icon: "success",
+            title: "Actualización de Logo Exitosa",
+            confirmButtonText: "ACEPTAR",
+            customClass: {
+              confirmButton: "btn-outlined-primary",
+            },
+            buttonsStyling: true,
+          }).then(() => {
+            window.location.reload();
+          });
+        }
       } catch {
         Swal.fire({
           icon: "error",
@@ -54,8 +56,6 @@ export default function GuiConfig() {
           },
           buttonsStyling: false,
         });
-      } finally {
-        //window.location.reload();
       }
     },
   });
