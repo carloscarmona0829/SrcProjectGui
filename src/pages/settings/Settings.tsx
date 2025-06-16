@@ -1,20 +1,16 @@
 import { Grid } from "../../adapters";
-import {
-  GuiConfig,
-} from "../../components";
+import { SettingsBody } from "../../components";
 import { LayoutContent } from "../../layout";
-
-export default function Config() {
-
+export default function Settings() {
   return (
     <>
       <LayoutContent title="Configuración GUI">
         <Grid container direction="column" spacing={2}>
           <Grid item>
-            <GuiConfig />
-          </Grid>          
+            <SettingsBody />
+          </Grid>
         </Grid>
-      </LayoutContent>      
+      </LayoutContent>
     </>
   );
 }

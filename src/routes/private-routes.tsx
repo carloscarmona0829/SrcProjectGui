@@ -1,5 +1,5 @@
 import { Route } from '../interfaces';
-import { Config, Home, Permissions } from '../pages';
+import { Settings, Home, Permissions } from '../pages';
 import commonRoutes from './common-routes';
 
 const privateRoutes: Route[] = [
@@ -17,7 +17,7 @@ const privateRoutes: Route[] = [
   {
     path: '/gui-config',
     id: 'gui-config',
-    element: <Config />
+    element: <Settings />
   },
   // {
   //   path: '/nav-logs',

@@ -1,6 +1,3 @@
-
-
-import Config from './config/Config';
 import EmailConfirm from './other/EmailConfirm';
 import ForgotPassword from './other/ForgotPassword';
 import Home from './other/Home';
@@ -13,7 +10,8 @@ import reducer, {
     initialState,
     State,
 } from "./permissions/Permissions.reducer";
+import Settings from './settings/Settings';
 
-export { Home, initialState, Login, NotFound, Permissions, reducer, SignUp, EmailConfirm, ForgotPassword, ResetPassword, Config };
+export { Home, initialState, Login, NotFound, Permissions, reducer, SignUp, EmailConfirm, ForgotPassword, ResetPassword, Settings };
 export type { State };
 
