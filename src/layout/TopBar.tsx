@@ -79,34 +79,61 @@ export default function TopBar({ open, toggleDrawer }: TopBarProps) {
             </IconButton>
           </Grid>
           <Grid item xs={8} sx={{ display: "flex", justifyContent: "center" }}>
-            <Box>
-              <RouterLink to="/">
-                <img
-                  src={"/assets/images/Logo.png"}
-                  alt="logo-white.png"
-                  style={{
-                    maxWidth: "35px",
-                    height: "auto",
-                    marginTop: open ? "17px" : "0px",
-                    marginRight: "2px",
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "60px",
+                overflow: "hidden",
+                padding: "5px",
+              }}
+            >
+            <RouterLink to="/">
+              <img
+                src={"/assets/images/Logo.png"}
+                alt="Logo.png"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  width: "auto",
+                  height: "auto",
+                  objectFit: "contain",
+                  marginTop:"10px",
                     display:
                       (isSmallScreen && !open) || (isCustomScreen && open)
                         ? "inline"
                         : "inline",
-                  }}
-                />
-                <img
-                  src={"/assets/images/Name.png"}
-                  alt="name.png"
-                  style={{
-                    maxWidth: "185px",
-                    height: "auto",
-                    marginTop: "15px",
-                    display: isSmallScreen && open ? "none" : "inline",
-                  }}
-                />
+                }}
+              />
               </RouterLink>
             </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "60px",
+                overflow: "hidden",
+                padding: "5px",
+              }}
+            >
+            <RouterLink to="/">
+              <img
+                src={"/assets/images/Name.png"}
+                alt="Name.png"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  width: "auto",
+                  height: "auto",
+                  objectFit: "contain",
+                  marginTop: "10px",
+                    display: isSmallScreen && open ? "none" : "inline",
+                }}
+              />
+              </RouterLink>
+            </Box>           
           </Grid>
           <Grid
             item

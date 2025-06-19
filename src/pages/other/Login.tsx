@@ -19,6 +19,7 @@ import {
   VisibilityOff,
 } from "../../adapters";
 import {
+  useEffect,
   //useEffect,
   useLocation,
   useNavigate,
@@ -41,6 +42,22 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [imageExists, setImageExists] = useState(false);
+  const imageUrl = "/assets/images/NameDark.png";
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = imageUrl;
+
+    img.onload = () => {
+      setImageExists(true);
+    };
+
+    img.onerror = () => {
+      setImageExists(false);
+    };
+  }, []);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -156,7 +173,7 @@ export default function Login() {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: `url("/assets/images/Background.jpg")`,
+          backgroundImage: `url("/assets/images/Background.png")`,
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -178,11 +195,20 @@ export default function Login() {
         >
           <Grid>
             <img
-              src={"/assets/images/Logotipo.png"}
-              alt="logotipo.png"
-              style={{ maxWidth: "400px", height: "auto" }}
+              src={"/assets/images/LogoDark.png"}
+              alt="LogoDark.png"
+              style={{ maxWidth: "200px", maxHeight: "auto", marginTop: "50px"}}
             />
           </Grid>
+          {imageExists && (
+            <Grid>
+              <img
+                src={imageUrl}
+                alt="NameDark.png"
+                style={{ maxWidth: "200px", maxHeight: "auto" }}
+              />
+            </Grid>
+          )}
           <Typography component="h2" variant="h5">
             Bienvenido
           </Typography>

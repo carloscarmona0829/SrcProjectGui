@@ -12,7 +12,7 @@ export default function Home() {
     <>
       <Grid        
         sx={{
-          backgroundImage: `url("/assets/images/Background.jpg")`,
+          backgroundImage: `url("/assets/images/Background.png")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
