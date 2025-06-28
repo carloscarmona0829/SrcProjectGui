@@ -93,13 +93,43 @@ export default function SettingsDialog({
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files && event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     formik.setFieldValue("image", file.name);
+  //     setSelectedFile(file);
+  //   }
+  // };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
-      formik.setFieldValue("image", file.name);
-      setSelectedFile(file);
+  if (event.target.files && event.target.files.length > 0) {
+    const file = event.target.files[0];
+
+    const acceptedImageTypes = ['image/jpeg', 'image/png']; 
+    if (!acceptedImageTypes.includes(file.type)) {
+      alert('Solo se permiten imágenes JPG, PNG');
+      event.target.value = ''; 
+      formik.setFieldValue("image", ""); 
+      setSelectedFile(null); 
+      return;
     }
-  };
+    
+    const maxSize = 2 * 1024 * 1024; 
+    if (file.size > maxSize) {
+      alert('El archivo es demasiado grande. El tamaño máximo permitido es 2MB.');
+      event.target.value = ''; 
+      formik.setFieldValue("image", ""); 
+      setSelectedFile(null);
+      return;
+    }
+    
+    formik.setFieldValue("image", file.name);
+    setSelectedFile(file);
+  } else {
+    formik.setFieldValue("image", "");
+    setSelectedFile(null);
+  }
+};
 
   return (
     <Dialog
