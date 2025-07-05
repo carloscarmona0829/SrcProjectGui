@@ -79,8 +79,8 @@ export default function TopBar({ open, toggleDrawer }: TopBarProps) {
           <Box>
             <RouterLink to="/">
               <img
-                src={"/assets/images/Logo.png"}
-                alt="Logo.png"
+                src={"/assets/images/LogoLight.png"}
+                alt="LogoLight.png"
                 style={{
                   maxWidth: "200px",
                   maxHeight: "60px",
@@ -94,8 +94,8 @@ export default function TopBar({ open, toggleDrawer }: TopBarProps) {
           <Box>
             <RouterLink to="/">
               <img
-                src={"/assets/images/Name.png"}
-                alt="Name.png"
+                src={"/assets/images/NameLight.png"}
+                alt="NameLight.png"
                 style={{
                   maxWidth: "200px",
                   maxHeight: "60px",
