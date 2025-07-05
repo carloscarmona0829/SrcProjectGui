@@ -24,11 +24,8 @@ export default function TopBar({ open, toggleDrawer }: TopBarProps) {
   const isSmallScreen = useMediaQuery((theme: any) =>
     theme.breakpoints.down("sm")
   );
-  const isCustomScreen = useMediaQuery((theme: any) =>
-    theme.breakpoints.between(600, 745)
-  );
 
-  const drawerWidth: number = isSmallScreen ? 260 : 275;
+  const drawerWidth: number = 260;
 
   const CustomTopBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -55,94 +52,60 @@ export default function TopBar({ open, toggleDrawer }: TopBarProps) {
       sx={{
         backgroundColor: "primary.main",
         height: "65px",
-        marginRight: isSmallScreen ? "0px" : "15px",
       }}
     >
       <Toolbar>
-        <Grid container justifyContent="space-between">
-          <Grid
-            item
-            xs={1}
-            container
-            justifyContent="flex-start"
-            alignItems="center"
+        <Grid justifyContent="space-between">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            sx={{
+              ...(open && { display: "none" }),
+            }}
           >
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon sx={{ color: "white" }} />
-            </IconButton>
-          </Grid>
-          <Grid item xs={8} sx={{ display: "flex", justifyContent: "center" }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "60px",
-                overflow: "hidden",
-                padding: "5px",
-              }}
-            >
+            <MenuIcon sx={{ color: "white" }} />
+          </IconButton>
+        </Grid>
+        <Grid
+          item
+          sx={{
+            display: "flex",
+            flexGrow: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box>
             <RouterLink to="/">
               <img
                 src={"/assets/images/Logo.png"}
                 alt="Logo.png"
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  width: "auto",
-                  height: "auto",
+                  maxWidth: "200px",
+                  maxHeight: "60px",
                   objectFit: "contain",
-                  marginTop:"10px",
-                    display:
-                      (isSmallScreen && !open) || (isCustomScreen && open)
-                        ? "inline"
-                        : "inline",
+                  marginTop: "10px",
+                  display: "inline",
                 }}
               />
-              </RouterLink>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "60px",
-                overflow: "hidden",
-                padding: "5px",
-              }}
-            >
+            </RouterLink>
+          </Box>
+          <Box>
             <RouterLink to="/">
               <img
                 src={"/assets/images/Name.png"}
                 alt="Name.png"
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  width: "auto",
-                  height: "auto",
+                  maxWidth: "200px",
+                  maxHeight: "60px",
                   objectFit: "contain",
                   marginTop: "10px",
-                    display: isSmallScreen && open ? "none" : "inline",
+                  display: isSmallScreen && open ? "none" : "inline",
                 }}
               />
-              </RouterLink>
-            </Box>           
-          </Grid>
-          <Grid
-            item
-            xs={1}
-            container
-            display={"flex"}
-            justifyContent="flex-end"
-            alignItems="center"
-          ></Grid>
+            </RouterLink>
+          </Box>
         </Grid>
       </Toolbar>
     </CustomTopBar>
