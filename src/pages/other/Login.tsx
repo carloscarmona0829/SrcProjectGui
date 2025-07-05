@@ -197,7 +197,11 @@ export default function Login() {
             <img
               src={"/assets/images/LogoDark.png"}
               alt="LogoDark.png"
-              style={{ maxWidth: "200px", maxHeight: "auto", marginTop: "50px"}}
+              style={{
+                maxWidth: "200px",
+                maxHeight: "150px",
+                marginTop: "40px",
+              }}
             />
           </Grid>
           {imageExists && (
@@ -205,7 +209,7 @@ export default function Login() {
               <img
                 src={imageUrl}
                 alt="NameDark.png"
-                style={{ maxWidth: "200px", maxHeight: "auto" }}
+                style={{ maxWidth: "200px", maxHeight: "150px" }}
               />
             </Grid>
           )}
