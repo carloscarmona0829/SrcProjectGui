@@ -24,7 +24,7 @@ export default function SettingsBody() {
               alignItems: "center",
               border: "1px solid lightgray",
               borderRadius: "4px",
-              padding: "8px 14px",
+              padding: "8px",
               minHeight: "80px",
               gap: "16px",
             }}
@@ -76,7 +76,7 @@ export default function SettingsBody() {
               alignItems: "center",
               border: "1px solid lightgray",
               borderRadius: "4px",
-              padding: "8px 14px",
+              padding: "8px",
               minHeight: "80px",
               gap: "16px",
             }}
@@ -129,7 +129,7 @@ export default function SettingsBody() {
               alignItems: "center",
               border: "1px solid lightgray",
               borderRadius: "4px",
-              padding: "8px 14px",
+              padding: "8px",
               minHeight: "80px",
               gap: "16px",
             }}
@@ -181,7 +181,7 @@ export default function SettingsBody() {
               alignItems: "center",
               border: "1px solid lightgray",
               borderRadius: "4px",
-              padding: "8px 14px",
+              padding: "8px",
               minHeight: "80px",
               gap: "16px",
             }}
@@ -207,10 +207,10 @@ export default function SettingsBody() {
                 overflow: "hidden",
                 padding: "5px",
               }}
-              onClick={() => handleImageClick("Logo.png")}
+              onClick={() => handleImageClick("LogoLight.png")}
             >
               <img
-                src={"/assets/images/Logo.png"}
+                src={"/assets/images/LogoLight.png"}
                 alt="Logo.png"
                 style={{
                   maxWidth: "100%",
@@ -233,7 +233,7 @@ export default function SettingsBody() {
               alignItems: "center",
               border: "1px solid lightgray",
               borderRadius: "4px",
-              padding: "8px 14px",
+              padding: "8px",
               minHeight: "80px",
               gap: "16px",
             }}
@@ -259,11 +259,11 @@ export default function SettingsBody() {
                 overflow: "hidden",
                 padding: "5px",
               }}
-              onClick={() => handleImageClick("Name.png")}
+              onClick={() => handleImageClick("NameLight.png")}
             >
               <img
-                src={"/assets/images/Name.png"}
-                alt="Name.png"
+                src={"/assets/images/NameLight.png"}
+                alt="NameLight.png"
                 style={{
                   maxWidth: "100%",
                   maxHeight: "100%",
@@ -285,7 +285,7 @@ export default function SettingsBody() {
               alignItems: "center",
               border: "1px solid lightgray",
               borderRadius: "4px",
-              padding: "8px 14px",
+              padding: "8px",
               minHeight: "80px",
               gap: "16px",
             }}
@@ -299,7 +299,8 @@ export default function SettingsBody() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "primary.main",
+                border: "1px solid",
+                borderColor: "primary.main",
                 borderRadius: "4px",
                 cursor: "pointer",
                 "&:hover": {
@@ -337,7 +338,7 @@ export default function SettingsBody() {
               alignItems: "center",
               border: "1px solid lightgray",
               borderRadius: "4px",
-              padding: "8px 14px",
+              padding: "8px",
               minHeight: "80px",
               gap: "16px",
             }}
@@ -351,7 +352,8 @@ export default function SettingsBody() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "primary.main",
+                border: "1px solid",
+                borderColor: "primary.main",
                 borderRadius: "4px",
                 cursor: "pointer",
                 "&:hover": {
