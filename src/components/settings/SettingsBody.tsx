@@ -16,7 +16,7 @@ export default function SettingsBody() {
       <Paper sx={{ padding: 3 }}>
         <Box mb={2}>
           <Typography variant="body1" mb={1}>
-            Actualizar Icono
+            Actualizar Favicon
           </Typography>
           <Box
             sx={{
@@ -30,7 +30,7 @@ export default function SettingsBody() {
             }}
           >
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-              Toque la imagen si desea actualizar el Icono de la aplicación.
+              Toque la imagen si desea actualizar el Favicon de la aplicación.
             </Typography>
             <Box
               sx={{
@@ -66,7 +66,7 @@ export default function SettingsBody() {
             </Box>
           </Box>
         </Box>
-         <Box mb={2}>
+        <Box mb={2}>
           <Typography variant="body1" mb={1}>
             Actualizar Background
           </Typography>
@@ -82,7 +82,8 @@ export default function SettingsBody() {
             }}
           >
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-              Toque la imagen si desea actualizar el Background de la aplicación.
+              Toque la imagen si desea actualizar el Background de la
+              aplicación.
             </Typography>
             <Box
               sx={{
@@ -118,7 +119,7 @@ export default function SettingsBody() {
             </Box>
           </Box>
         </Box>
-         <Box mb={2}>
+        <Box mb={2}>
           <Typography variant="body1" mb={1}>
             Actualizar Logotipo
           </Typography>
@@ -172,7 +173,7 @@ export default function SettingsBody() {
         </Box>
         <Box mb={2}>
           <Typography variant="body1" mb={1}>
-            Actualizar Logo
+            Actualizar Logo Claro
           </Typography>
           <Box
             sx={{
@@ -186,14 +187,15 @@ export default function SettingsBody() {
             }}
           >
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-              Toque la imagen si desea actualizar el Logo de la aplicación.
+              Toque la imagen si desea actualizar el Logo Claro de la
+              aplicación.
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor:"primary.main",
+                backgroundColor: "primary.main",
                 borderRadius: "4px",
                 cursor: "pointer",
                 "&:hover": {
@@ -206,7 +208,7 @@ export default function SettingsBody() {
                 padding: "5px",
               }}
               onClick={() => handleImageClick("Logo.png")}
-             >
+            >
               <img
                 src={"/assets/images/Logo.png"}
                 alt="Logo.png"
@@ -223,7 +225,7 @@ export default function SettingsBody() {
         </Box>
         <Box mb={2}>
           <Typography variant="body1" mb={1}>
-            Actualizar Nombre
+            Actualizar Nombre Claro
           </Typography>
           <Box
             sx={{
@@ -237,14 +239,15 @@ export default function SettingsBody() {
             }}
           >
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-              Toque la imagen si desea actualizar el Nombre de la aplicación.
+              Toque la imagen si desea actualizar el Nombre Claro de la
+              aplicación.
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor:"primary.main",
+                backgroundColor: "primary.main",
                 borderRadius: "4px",
                 cursor: "pointer",
                 "&:hover": {
@@ -288,14 +291,15 @@ export default function SettingsBody() {
             }}
           >
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-              Toque la imagen si desea actualizar el Logo Oscuro de la aplicación.
+              Toque la imagen si desea actualizar el Logo Oscuro de la
+              aplicación.
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor:"primary.main",
+                backgroundColor: "primary.main",
                 borderRadius: "4px",
                 cursor: "pointer",
                 "&:hover": {
@@ -308,7 +312,7 @@ export default function SettingsBody() {
                 padding: "5px",
               }}
               onClick={() => handleImageClick("LogoDark.png")}
-             >
+            >
               <img
                 src={"/assets/images/LogoDark.png"}
                 alt="LogoDark.png"
@@ -339,14 +343,15 @@ export default function SettingsBody() {
             }}
           >
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-              Toque la imagen si desea actualizar el Nombre Oscuro de la aplicación.
+              Toque la imagen si desea actualizar el Nombre Oscuro de la
+              aplicación.
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor:"primary.main",
+                backgroundColor: "primary.main",
                 borderRadius: "4px",
                 cursor: "pointer",
                 "&:hover": {
