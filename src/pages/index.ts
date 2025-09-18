@@ -10,8 +10,10 @@ import reducer, {
     initialState,
     State,
 } from "./permissions/Permissions.reducer";
+import DigitalCard from './security/DigitalCard';
+import Entrance from './security/Entrance';
 import Settings from './settings/Settings';
 
-export { Home, initialState, Login, NotFound, Permissions, reducer, SignUp, EmailConfirm, ForgotPassword, ResetPassword, Settings };
+export { DigitalCard, EmailConfirm, Entrance, ForgotPassword, Home, initialState, Login, NotFound, Permissions, reducer, ResetPassword, Settings, SignUp };
 export type { State };
 

@@ -8,10 +8,13 @@ import {
   FactCheckIcon,
   FeedIcon,
   FiberNewIcon,
+  FingerprintIcon,
   ListAltIcon,
+  MeetingRoomIcon,
   PhoneCallbackIcon,
   RestaurantIcon,
   RestaurantMenuIcon,
+  SecurityIcon,
   SettingsBrightnessIcon,
   SettingsIcon,
   SpellcheckIcon,
@@ -80,7 +83,7 @@ const menuItems: MenuItem[] = [
           </>
         ),
         path: "/gui-config",
-      },      
+      },
     ],
   },
   {
@@ -253,6 +256,43 @@ const menuItems: MenuItem[] = [
           </>
         ),
         path: "/deportes-mi-agenda",
+      },
+    ],
+  },
+  {
+    name: "Seguridad",
+    id: "seguridad",
+    icon: (
+      <>
+        <Tooltip title="Seguridad" arrow placement="right">
+          <SecurityIcon />
+        </Tooltip>
+      </>
+    ),
+    submenus: [
+      {
+        name: "Identificación",
+        id: "identificacion",
+        icon: (
+          <>
+            <Tooltip title="Identificación" arrow placement="right">
+              <FingerprintIcon />
+            </Tooltip>
+          </>
+        ),
+        path: "/identificacion",
+      },
+      {
+        name: "Ingreso",
+        id: "ingreso",
+        icon: (
+          <>
+            <Tooltip title="Ingreso" arrow placement="right">
+              <MeetingRoomIcon />
+            </Tooltip>
+          </>
+        ),
+        path: "/ingreso",
       },
     ],
   },

@@ -16,24 +16,32 @@ import FactCheckIcon from "@mui/icons-material/FactCheck";
 import FeedIcon from "@mui/icons-material/Feed";
 import FiberNewIcon from "@mui/icons-material/FiberNew";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import GppBadIcon from "@mui/icons-material/GppBad";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import MenuIcon from "@mui/icons-material/Menu";
+import PasswordIcon from "@mui/icons-material/Password";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneCallbackIcon from "@mui/icons-material/PhoneCallback";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import SearchIcon from "@mui/icons-material/Search";
+import SecurityIcon from '@mui/icons-material/Security';
+import SendIcon from "@mui/icons-material/Send";
+import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
 import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 import SportsTennisIcon from "@mui/icons-material/SportsTennis";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import {
   Alert,
   AlertTitle,
@@ -80,21 +88,14 @@ import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import Toolbar from "@mui/material/Toolbar";
 import { TransitionProps } from "@mui/material/transitions";
-import VerifiedIcon from "@mui/icons-material/Verified";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import PasswordIcon from "@mui/icons-material/Password";
-import SendIcon from "@mui/icons-material/Send";
-import SettingsIcon from "@mui/icons-material/Settings";
-import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
-import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 export {
   AccountBalanceIcon,
   AccountCircle,
-  AccountCircleIcon,
-  Alert,
-  AlertTitle,
-  ArticleIcon,
+  AccountCircleIcon, AdapterMoment, Alert,
+  AlertTitle, alpha, ArticleIcon,
   AssignmentIndIcon,
   Avatar,
   Backdrop,
@@ -109,8 +110,7 @@ export {
   colors,
   Container,
   createTheme,
-  CssBaseline,
-  Dialog,
+  CssBaseline, DatePicker, Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -121,12 +121,10 @@ export {
   FactCheckIcon,
   FeedIcon,
   FiberNewIcon,
-  FileDownloadDoneIcon,
-  GppBadIcon,
+  FileDownloadDoneIcon, FingerprintIcon, GppBadIcon,
   Grid,
   HowToRegIcon,
-  IconButton,
-  InputAdornment,
+  IconButton, ImageSearchIcon, InputAdornment,
   KeyboardArrowDownIcon,
   KeyboardArrowRightIcon,
   Link,
@@ -134,19 +132,15 @@ export {
   ListAltIcon,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
-  LogoutIcon,
-  MenuIcon,
+  ListItemText, LocalizationProvider, LogoutIcon, MeetingRoomIcon, MenuIcon,
   MenuItem,
   MuiAppBar,
   MuiDrawer,
-  Paper,
-  PersonIcon,
+  Paper, PasswordIcon, PersonIcon,
   PhoneCallbackIcon,
   RestaurantIcon,
   RestaurantMenuIcon,
-  SearchIcon,
-  Skeleton,
+  SearchIcon, SecurityIcon, SendIcon, SettingsBrightnessIcon, SettingsIcon, Skeleton,
   Slide,
   SpellcheckIcon,
   SportsTennisIcon,
@@ -163,20 +157,10 @@ export {
   Toolbar,
   Tooltip,
   Typography,
-  useMediaQuery,
-  Visibility,
+  useMediaQuery, VerifiedIcon, Visibility,
   VisibilityOff,
-  WorkspacePremiumIcon,
-  VerifiedIcon,
-  DatePicker,
-  LocalizationProvider,
-  AdapterMoment,
-  PasswordIcon,
-  SendIcon,
-  SettingsIcon,
-  SettingsBrightnessIcon,
-  ImageSearchIcon,
-  alpha,
+  WorkspacePremiumIcon
 };
 
 export type { AppBarProps, TransitionProps };
+
