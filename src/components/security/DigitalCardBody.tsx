@@ -1,23 +1,125 @@
-import { Box, Paper, Typography, alpha } from "../../adapters";
-import { useState } from "../../adapters/ReactAdapter";
+import { Box, Paper, Typography, alpha, axiosClient } from "../../adapters";
+import { useEffect, useRef, useState } from "../../adapters/ReactAdapter";
+import { useUser } from "../../hooks";
 import DigitalCardDialog from "./DigitalCardDialog";
+
+export interface DigitalCardBodyParams {
+  strUserId?: string;
+  strUserName?: string;
+}
 
 export default function DigitalCardBody() {
   const [imageName, setImageName] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
+  const [qrCodeUrl, setQrCodeUrl] = useState<string | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+
+  const { user } = useUser();
+
+  const activeQrCodeUrl = useRef<string | null>(null);
 
   const handleImageClick = (imageName: string) => {
     setImageName(imageName);
     setOpenDialog(true);
   };
 
+  useEffect(() => {
+    handleSubmit({
+      strUserId: user?.info?.strDni && user.info.strDni,
+      strUserName: user?.info?.strFullName && user.info.strFullName,
+    });
+
+    console.log(user?.info?.strFullName && user.info.strFullName, user?.info?.strDni && user.info.strDni)
+
+    return () => {
+      if (activeQrCodeUrl.current) {
+        URL.revokeObjectURL(activeQrCodeUrl.current);
+        activeQrCodeUrl.current = null;
+      }
+    };
+  }, []);
+
+  const handleSubmit = async (filters: DigitalCardBodyParams) => {
+
+    let newObjectUrl: string | null = null;
+
+    try {
+      setLoading(true);
+      setError(false);
+
+      const response = await axiosClient.post(
+        "/InOut/Card",
+        {
+          strUserId: filters.strUserId,
+          strUserName: filters.strUserName,
+        },
+      );
+
+      if (response.status !== 200 || !response.data.isSuccess) {
+        console.error("Error del servidor:", response.data.message);
+        throw new Error(`Error al obtener QR: ${response.data.message}`);
+      }
+
+      const base64String = response.data.response;
+
+      if (!base64String) {
+        throw new Error("El servidor no devolvió la cadena Base64 de la imagen.");
+      }
+
+      const byteCharacters = atob(base64String);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const qrCodeBytes = new Uint8Array(byteNumbers);
+
+      const blob = new Blob([qrCodeBytes], { type: 'image/png' });
+      newObjectUrl = URL.createObjectURL(blob);
+
+      if (activeQrCodeUrl.current) {
+        URL.revokeObjectURL(activeQrCodeUrl.current);
+      }
+      activeQrCodeUrl.current = newObjectUrl;
+      setQrCodeUrl(newObjectUrl);
+
+    } catch (error) {
+      console.error("Error en handleSubmit:", error);
+
+      const urlToRevoke = newObjectUrl || activeQrCodeUrl.current;
+      if (urlToRevoke) {
+        URL.revokeObjectURL(urlToRevoke);
+      }
+
+      activeQrCodeUrl.current = null;
+      setQrCodeUrl(undefined);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageError = () => {
+    console.error("😱 ERROR DE CARGA DE IMAGEN: El navegador no pudo decodificar el PNG de la URL de Blob. La data recibida es probablemente corrupta o no es un PNG válido.");
+    // Opcional: podrías establecer error(true) aquí, pero esto ya es un diagnóstico.
+    setQrCodeUrl(undefined);
+  };
+
+  if (loading) {
+    return <Typography>Cargando código QR...</Typography>;
+  }
+
+  if (error) {
+    return <Typography color="error">Error al cargar el carnet digital. Intente de nuevo.</Typography>;
+  }
+
   return (
     <>
       <Paper sx={{ padding: 3 }}>
         <Box mb={2}>
-          <Typography variant="body1" mb={1}>
+          {/* <Typography variant="body1" mb={1}>
             Carnet
-          </Typography>
+          </Typography> */}
           <Box
             sx={{
               display: "flex",
@@ -30,9 +132,11 @@ export default function DigitalCardBody() {
             }}
           >
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-              Este es un Carnet Digital.
+              {user?.info?.strName && user.info.strName}
               <br />
-              Escanee el código QR para verificar la validéz.
+              {user?.info?.strLastName && user.info.strLastName}
+              <br />
+              {user?.info?.strDni && user.info.strDni}
             </Typography>
             <Box
               sx={{
@@ -66,6 +170,26 @@ export default function DigitalCardBody() {
                 }}
               />
             </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "auto",
+              height: "200px",
+            }}
+          >
+            <img
+              src={qrCodeUrl}
+              alt="Código QR.png"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                width: "auto",
+                height: "auto",
+              }}
+            />
           </Box>
         </Box>
       </Paper>
