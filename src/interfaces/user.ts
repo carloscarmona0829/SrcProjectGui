@@ -7,6 +7,8 @@ export interface UserInfo {
   strFullName: string;
   strUserType: 'emp' | 'ext';
   strUser: string;
+  strCargo: string;
+  strRh: string;
   exp: number;
 }
 
